@@ -1,0 +1,1 @@
+from Telezhka.telezhka import *
