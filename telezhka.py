@@ -3,7 +3,7 @@ from requests import Session
 class ApiError(Exception):
 	pass
 
-class telegram:
+class Telegram:
 	def __init__(self, token):
 		self.session = Session()
 		self.api = "https://api.telegram.org/bot{}/".format(token)
