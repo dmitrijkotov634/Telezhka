@@ -13,8 +13,8 @@ from Telezhka import *
 api = Telegram("883304628:ONTB4H2SAMPLEtext9m0g")
 
 for event in api.listen():
-	if "text" in event:
-		if event["text"] == "/hello":
-			api.sendMessage(text="Hello", chat_id=event["chat"]["id"])
+	if "message" in event and "text" in event["message"]:
+		if event["message"]["text"] == "/hello":
+			api.sendMessage(text="Hello", chat_id=event["message"]["chat"]["id"])
 ```
 
