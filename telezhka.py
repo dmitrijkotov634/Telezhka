@@ -2,7 +2,7 @@ from requests import Session
 
 class ApiError(Exception):
 	pass
-
+	
 class Telegram:
 	def __init__(self, token):
 		self.session = Session()
@@ -24,7 +24,7 @@ class Telegram:
 			response = self.getUpdates(offset=ts, timeout=timeout)
 			if response:
 				for event in response:
-					yield event["message"]
+					yield event
 					ts = event["update_id"] + 1
 
 	def __getattr__(self, attr):
