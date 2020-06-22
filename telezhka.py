@@ -1,12 +1,31 @@
 from requests import Session
+import json
 
 class ApiError(Exception):
 	pass
 	
+class Keyboard:
+	def __init__(self, mode="keyboard", **args):
+		self.mode = mode
+		self.keyboard = {mode:[[]]}
+		self.keyboard.update(args)
+		
+	def add_line(self, *args):
+		self.keyboard[self.mode].append(list(args))
+	
+	def add_button(self, **args):
+		self.keyboard[self.mode][-1].append(args)
+	
+	def clear(self):
+		self.keyboard[self.mode] = [[]]
+		
+	def compile(self):
+		return json.dumps(self.keyboard)
+		
 class Telegram:
 	def __init__(self, token):
 		self.session = Session()
-		self.api = "https://api.telegram.org/bot%s/" % (token)
+		self.api = "https://api.telegram.org/bot" + token + "/"
 
 	def method(self, name="getMe", data={}):
 		response = self.session.get(self.api+name, data=data).json()
@@ -17,7 +36,7 @@ class Telegram:
 	
 	def listen(self, timeout=25):
 		ts = 0
-		response = self.getUpdates(timeout=1, offset=-1)
+		response = self.getUpdates(offset=-1)
 		if response:
 			ts = response[0]["update_id"] + 1
 		while True:
