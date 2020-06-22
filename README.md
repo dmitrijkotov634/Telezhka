@@ -18,3 +18,11 @@ for event in api.listen():
 			api.sendMessage(text="Hello", chat_id=event["message"]["chat"]["id"])
 ```
 
+*Keyboard*:
+```python
+kb = Keyboard(resize_keyboard=True)
+kb.add_button(text="hello")
+kb.add_line({"text":"hello2"})
+api.sendMessage(reply_markup=kb.compile(), text="Hello", chat_id=event["message"]["chat"]["id"])
+```
+
