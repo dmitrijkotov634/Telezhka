@@ -3,7 +3,7 @@ import json
 
 class ApiError(Exception):
     pass
-	
+
 class Keyboard:
     def __init__(self, mode="keyboard", **args):
         self.mode = mode
@@ -43,7 +43,7 @@ class Telegram:
         else:
             raise ApiError("[%s] %s" % (response["error_code"], response["description"]))
 
-    def listen(self, timeout=25):
+    def listen(self, timeout=27):
         ts = 0
         response = self.getUpdates(offset=-1)
         if response:
