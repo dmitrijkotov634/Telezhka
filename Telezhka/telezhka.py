@@ -3,7 +3,14 @@ import json
 
 class ApiError(Exception):
     pass
-
+    
+class Update(dict):
+	def __getattr__(self, attr):
+		if isinstance(self[attr], dict):
+			return Update(self[attr])
+		else:
+			return self[attr]
+			
 class Keyboard:
     def __init__(self, mode="keyboard", **args):
         self.mode = mode
@@ -45,15 +52,21 @@ class Telegram:
 
     def listen(self, timeout=27):
         ts = 0
-        response = self.getUpdates(offset=-1)
+        response = self.method("getUpdates", {"offset": -1})
         if response:
             ts = response[0]["update_id"] + 1
         while True:
-            response = self.getUpdates(offset=ts, timeout=timeout)
+            response = self.method("getUpdates", {"offset": ts, "timeout": timeout})
             if response:
                 for event in response:
-                    yield event
+                    yield Update(event)
                     ts = event["update_id"] + 1
 
     def __getattr__(self, attr):
         return lambda **data: self.method(attr, data)
+        
+    def reply(self, update, **args):
+        if "message" in update:
+            params = {"chat_id": update["message"]["chat"]["id"], "reply_to_message_id": update["message"]["message_id"]}
+            params.update(args)
+            self.method("sendMessage", params)
