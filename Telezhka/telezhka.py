@@ -30,6 +30,9 @@ class Keyboard:
         self.keyboard[self.mode][-1].append(args)
 
     def clear(self):
+        """
+        Remove all buttons on the keyboard.
+        """
         self.keyboard[self.mode] = [[]]
 
     def compile(self):
@@ -64,6 +67,9 @@ class Telegram:
 
     def __getattr__(self, attr):
         return lambda **data: self.method(attr, data)
+    
+    def __repr__(self):
+        return f"Bot api <{self.method('getMe')['username']}>"
         
     def reply(self, update, **args):
         if "message" in update:
