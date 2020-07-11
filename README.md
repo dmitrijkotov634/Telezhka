@@ -28,6 +28,7 @@ from Telezhka import Keyboard
 kb = Keyboard(resize_keyboard=True)
 kb.add_button(text="hello")
 kb.add_line({"text": "hello2"})
+# Send message with keyboard
 api.sendMessage(reply_markup=kb.compile(), text="Hello", chat_id=event.message.chat.id)
 ```
 
