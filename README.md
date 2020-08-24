@@ -1,7 +1,7 @@
 <div align="center">
 	<h1>Telezhka</h1>
 
-Telegram api library in python
+Telegram bot api library in python
 
 ![pypi](https://badge.fury.io/py/Telezhka.svg)
 

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="Telezhka",
-    version="0.0.10",
+    version="0.0.11",
     author="dmitrijkotov",
     author_email="dmitrijkotov634@mail.ru",
     description="Telegram bot api library in python",
